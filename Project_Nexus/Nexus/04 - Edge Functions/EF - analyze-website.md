@@ -36,10 +36,10 @@ Processo: Fetch HTML → Strip tags/scripts → Trunca 8000 chars → GPT analis
 ```
 
 ## ⚠️ Melhorias
-- [ ] **Sem fallback LLM** — se OpenAI cair, a função falha
+- [x] ~~**Sem fallback LLM**~~ — fallback Lovable/Gemini já existia
 - [ ] Scraping básico (strip HTML) — pode perder contexto de SPAs
-- [ ] User-Agent hardcoded como Windows Chrome
-- [ ] Não loga em `api_logs`
-- [ ] Não consome créditos
+- [x] ~~User-Agent hardcoded como Windows Chrome~~ — substituído por `NexusBot/1.0` (2026-04-08)
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
+- [x] ~~Não consome créditos~~ — já implementado via `consumeCredits`
 
 → [[Nexus - Melhorias e Roadmap]]

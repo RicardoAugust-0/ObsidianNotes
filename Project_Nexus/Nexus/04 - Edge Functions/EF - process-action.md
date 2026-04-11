@@ -33,8 +33,8 @@ parent: "[[Nexus - Edge Functions]]"
 ```
 
 ## ⚠️ Melhorias
-- [ ] **🔴 BUG**: `create_pre_lead` está no mapa de custos mas NÃO no switch — cai no `default: throw`
+- [x] ~~**🔴 BUG**: `create_pre_lead` não no switch~~ — case já existia no código
 - [ ] Poucas ações implementadas — deveria cobrir mais operações
-- [ ] Não loga em `api_logs`
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
 
 → [[Nexus - Melhorias e Roadmap]]

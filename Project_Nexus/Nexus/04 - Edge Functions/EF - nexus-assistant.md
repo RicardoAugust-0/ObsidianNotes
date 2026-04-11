@@ -84,9 +84,9 @@ Carrega **8 tabelas em paralelo** a cada request: leads (300), oportunidades (10
 ## ⚠️ Melhorias Sugeridas
 
 - [ ] **Performance crítica**: Carrega milhares de registros a cada request — implementar cache ou filtro por tenant
-- [ ] **Consumo de créditos**: Não consome créditos (a função mais chamada deveria?)
+- [x] ~~**Consumo de créditos**: Não consome créditos~~ — `consumeCredits()` ativo (1 crédito/request) (sprint anterior)
 - [ ] **Prompt muito longo**: O system prompt pode ultrapassar 100K tokens — risco de custo alto
-- [ ] **Sem rate limiting por tenant**: Qualquer usuário pode fazer requests ilimitados
+- [x] ~~**Sem rate limiting por tenant**~~ — `checkRateLimit(RATE_LIMITS["nexus-assistant"])` ativo no `index.ts` (sprint anterior)
 
 → [[Nexus - Melhorias e Roadmap#EF - nexus-assistant]]
 

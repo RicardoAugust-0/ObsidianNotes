@@ -23,8 +23,8 @@ parent: "[[Nexus - Edge Functions]]"
 ```
 
 ## ⚠️ Melhorias
-- [ ] **Sem validação de role admin** — qualquer JWT válido pode listar todos os users
-- [ ] Não filtra campos sensíveis (poderia expor dados indevidos)
-- [ ] Deveria paginar resultados
+- [x] ~~**Sem validação de role admin**~~ — `requireAdmin()` já existia
+- [x] ~~Não filtra campos sensíveis~~ — retorna apenas `{ id, email }`
+- [x] ~~Deveria paginar resultados~~ — paginação via `?page=&perPage=` implementada (2026-04-08)
 
 → [[Nexus - Melhorias e Roadmap]]

@@ -32,9 +32,9 @@ parent: "[[Nexus - Edge Functions]]"
 5. Batch de 10 com delay de 100ms entre batches
 
 ## ⚠️ Melhorias
-- [ ] **Sem de-duplicação** — reprocessa conversas já embedadas
-- [ ] Limite de 100 registros — não processa histórico completo
-- [ ] Sem filtro de tenant (`user_id`)
+- [x] ~~**Sem de-duplicação**~~ — de-duplicação via `alreadyEmbedded` já existia
+- [x] ~~Limite de 100 registros — não processa histórico completo~~ — aumentado para `.limit(500)` (2026-04-08)
+- [x] ~~Sem filtro de tenant (`user_id`)~~ — filtro por `tenantLeadIds` já existia
 - [ ] Deveria ser executada como cron/trigger, não on-demand
 
 → [[Nexus - Melhorias e Roadmap]]

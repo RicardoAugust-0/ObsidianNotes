@@ -223,13 +223,48 @@ Cada arquivo representa uma **rota** completa da SPA.
 | `TemplateStatusBadge.tsx` | Badge visual por status (Approved, Pending, Rejected, etc.) |
 | `TemplatePreview.tsx` | Preview visual do template |
 
+#### `credits/` — Economia de Créditos (UI)
+
+> Componentes visuais que expõem o saldo de créditos do usuário. Consomem o hook [[#`src/hooks/` — Custom Hooks|useUserCredits]] e são independentes de qualquer lógica de dedução.
+
+| Componente | Função |
+|:---|:---|
+| `CreditsBadge.tsx` | Badge compacto exibido no header/sidebar. Mostra saldo com ícone de moeda (`Coins`). Cor muda conforme saldo: **verde** ≥ 5, **âmbar** ≥ 2, **vermelho** < 2. Inclui `Tooltip` com aviso de saldo baixo. Props: `className`, `showLabel` |
+
+> [!tip] Onde usar
+> `CreditsBadge` é plug-and-play: adicione onde quiser exibir o saldo sem carregar nenhum contexto adicional — ele faz o próprio fetch via `useUserCredits`.
+
+---
+
+#### `subscription/` — Status de Plano e Assinatura (UI)
+
+> Card compacto que combina **plano atual** + **saldo de créditos** em um único componente, ideal para Sidebar e painéis de perfil. Consome `useUserRole` (que já traz `planType`, `credits` e `isAdmin` num único fetch).
+
+| Componente | Função |
+|:---|:---|
+| `SubscriptionStatus.tsx` | Card com badge do plano atual (`Iniciante` / `Basic` / `Pro` / `Enterprise` / `ADMIN`) e display de créditos. Admins veem `∞`. Se o plano for `free`, exibe botão CTA "Fazer Upgrade" que navega para `/pricing` |
+
+**Mapeamento de planos → labels:**
+
+| `plan_type` | Label exibido | Cor |
+|:---|:---|:---|
+| `free` | Iniciante | Zinc |
+| `basic` | Basic | Azul |
+| `pro` / `premium` | Pro | Primária |
+| `enterprise` | Enterprise | Verde esmeralda |
+| *(admin)* | ADMIN | Destrutiva (vermelho) |
+
+> [!info] Diferença entre `CreditsBadge` e `SubscriptionStatus`
+> - `CreditsBadge` → exibe **só créditos**, leve, uso inline no header
+> - `SubscriptionStatus` → exibe **plano + créditos + CTA**, uso em sidebars e painéis
+
+---
+
 #### Outros Componentes
 
 | Componente | Função |
 |:---|:---|
 | `ai/AISuggestions.tsx` | Sugestões inteligentes da IA no dashboard |
-| `credits/CreditsBadge.tsx` | Badge visual de saldo de créditos |
-| `subscription/SubscriptionStatus.tsx` | Status da assinatura na sidebar |
 | `integrations/IntegrationConfigDialog.tsx` | Dialog para configurar credenciais de integrações |
 | `ui/` | **Componentes shadcn/ui** — biblioteca completa de primitivos UI (botões, inputs, dialogs, etc.) |
 
@@ -239,19 +274,24 @@ Cada arquivo representa uma **rota** completa da SPA.
 
 | Hook | Linhas | Padrão | Função |
 |:---|:---:|:---|:---|
-| `useUserRole.tsx` | 92 | State + Realtime | Perfil do usuário (role, plan, credits). Escuta `postgres_changes` |
-| `useUserCredits.ts` | 125 | State + RPC | Saldo de créditos, dedução via `deduct_credits` RPC |
-| `useStreamingChat.ts` | 118 | Fetch + SSE | Streaming de mensagens com o Nexus Assistant |
-| `useNexusConversations.ts` | 144 | React Query | CRUD de conversas do chat. Mutations com invalidação |
-| `useWhatsappTemplates.ts` | ~100 | React Query | CRUD de templates WhatsApp via Edge Function |
-| `useLinkedInSearch.ts` | ~100 | State Machine | Prospecção LinkedIn com tracking de progresso |
-| `useEmailSearch.ts` | ~50 | State | Busca por e-mail de decisores |
-| `useIntegrationConfigs.ts` | ~60 | React Query | Configurações de integrações por tenant |
-| `useLeadAssignmentNotifications.tsx` | ~50 | Realtime | Push notification quando lead é atribuído |
-| `usePushNotifications.tsx` | ~200 | Browser API | Web Push Notifications (service worker) |
-| `useDebounce.ts` | ~15 | Utility | Debounce genérico para inputs |
-| `use-mobile.tsx` | ~20 | Media Query | Detecta viewport mobile |
-| `use-toast.ts` | ~100 | State | Sistema de toasts (shadcn pattern) |
+| `useUserRole.tsx` | 92 | State + Realtime | Perfil do usuário: expõe `role`, `planType`, `credits`, `isAdmin`, `loading`. Escuta `postgres_changes` na tabela `profiles` para manter créditos em tempo real |
+| `useUserCredits.ts` | 125 | State + RPC | Saldo de créditos em tempo real. Expõe `balance`, `loading`, `deduct_credits(amount)`, `hasEnoughCredits(amount)`, `refreshBalance()`. Chama `consume_credits` RPC |
+| `useStreamingChat.ts` | 118 | Fetch + SSE | Streaming de mensagens via `EventSource` com a Edge Function `nexus-assistant`. Parseia marcadores especiais (`[LINKEDIN_SEARCH_STARTED]` etc.) |
+| `useNexusConversations.ts` | 144 | React Query | CRUD completo de conversas do Nexus Chat. Queries com cache, mutations com `invalidateQueries` automático |
+| `useWhatsappTemplates.ts` | ~100 | React Query | CRUD de templates WhatsApp via Edge Function `whatsapp-templates`. Cache e refetch automático |
+| `useLinkedInSearch.ts` | ~100 | State Machine | Prospecção LinkedIn com estados `idle → loading → results → error`. Tracking de progresso por etapa |
+| `useEmailSearch.ts` | ~50 | State | Busca por e-mail de decisores via Edge Function `search-leads`. Estado simples com `loading` + `results` |
+| `useIntegrationConfigs.ts` | ~60 | React Query | Configurações de integrações por tenant (`user_id`). Abstrai fetch da tabela `integration_configs` |
+| `useLeadAssignmentNotifications.tsx` | ~50 | Realtime | Escuta `postgres_changes` para atribuição de leads. Dispara notificação nativa do browser quando o lead é atribuído ao usuário logado |
+| `usePushNotifications.tsx` | ~200 | Browser API | Gerencia Web Push Notifications via service worker. Solicita permissão, salva subscription e envia para o backend |
+| `useDebounce.ts` | ~15 | Utility | Debounce genérico — retorna valor estabilizado após delay (ms). Usado em campos de busca |
+| `use-mobile.tsx` | ~20 | Media Query | Detecta viewport mobile via `window.matchMedia`. Retorna `boolean` |
+| `use-toast.ts` | ~100 | State | Sistema de toasts baseado no padrão shadcn/ui. Expõe `toast()` para exibir notificações efêmeras |
+
+> [!note] Hooks de dados vs. hooks de UI
+> - **Dados** (Supabase/Edge): `useUserRole`, `useUserCredits`, `useNexusConversations`, `useWhatsappTemplates`, `useIntegrationConfigs`, `useLeadAssignmentNotifications`
+> - **Ações externas**: `useStreamingChat`, `useLinkedInSearch`, `useEmailSearch`, `usePushNotifications`
+> - **Utilitários**: `useDebounce`, `use-mobile`, `use-toast`
 
 ---
 

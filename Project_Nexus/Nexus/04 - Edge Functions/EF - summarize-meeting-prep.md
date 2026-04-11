@@ -32,8 +32,8 @@ parent: "[[Nexus - Edge Functions]]"
 4. IA gera briefing estruturado em JSON
 
 ## ⚠️ Melhorias
-- [ ] **Sem fallback OpenAI** — se Lovable cair, função falha
-- [ ] Não loga em `api_logs`
-- [ ] Sem consumo de créditos
+- [x] ~~**Sem fallback OpenAI**~~ — fallback para `gpt-4o-mini` adicionado quando Lovable falha (2026-04-08)
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
+- [x] ~~Sem consumo de créditos~~ — já implementado via `consumeCredits`
 
 → [[Nexus - Melhorias e Roadmap]]

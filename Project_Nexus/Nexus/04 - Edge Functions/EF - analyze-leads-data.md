@@ -25,9 +25,9 @@ parent: "[[Nexus - Edge Functions]]"
 ```
 
 ## ⚠️ Melhorias
-- [ ] **🔴 CRÍTICO**: Busca TODOS os leads sem filtro de `user_id` — viola multi-tenancy
-- [ ] Sem limite de registros (`.limit()` ausente)
-- [ ] Trunca informações em 8000 chars — pode perder dados
-- [ ] Não loga em `api_logs`
+- [x] ~~**🔴 CRÍTICO**: Busca TODOS os leads sem filtro de `user_id`~~ — filtro `.eq("user_id", user.id)` já existia
+- [x] ~~Sem limite de registros~~ — `.limit(500)` adicionado (2026-04-08)
+- [x] ~~Trunca informações em 8000 chars — pode perder dados~~ — truncação por lead (500 chars cada) implementada (2026-04-08)
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
 
 → [[Nexus - Melhorias e Roadmap]]

@@ -28,12 +28,12 @@ parent: "[[Nexus - Edge Functions]]"
 ## Cards Gerados
 Visão Geral, Nível de Decisão, Dores, Soluções Aderentes, Ângulo de Abordagem, Mensagem de Contato, Notas Comerciais.
 
-## Portfólio (RP One)
-Nexus, Valora, Melhoria de Processos, Automações, Consultoria Estratégica.
+## Portfólio (RP Consultoria)
+Nexus, Financeiro, Melhoria de Processos, Automações, Consultoria Estratégica.
 
 ## ⚠️ Melhorias
-- [ ] Retorna `analysis` como string (não JSON estruturado) — dificulta parsing no frontend
-- [ ] Portfólio hardcoded ("RP One" vs "RP Consultoria" — inconsistência de nome)
-- [ ] Não loga em `api_logs`
+- [x] ~~Retorna `analysis` como string~~ — já retornava objeto JSON estruturado (`{ success, analysis }`)
+- [x] ~~Portfólio hardcoded ("RP One" vs "RP Consultoria")~~ — extraído para constante `PORTFOLIO` e nome corrigido para "RP Consultoria" (2026-04-08)
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
 
 → [[Nexus - Melhorias e Roadmap]]

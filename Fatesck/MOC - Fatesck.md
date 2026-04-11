@@ -27,9 +27,9 @@ aliases:
 
 ## Requisitos
 
-| Categoria | Notas |
-|-----------|-------|
-| **Funcionais** | [[Requisitos Funcionais]] |
+| Categoria          | Notas              |
+| ------------------ | ------------------ |
+| **Funcionais**     | [[Requisitos Funcionais]]     |
 | **Não Funcionais** | [[Requisitos Não Funcionais]] |
 
 ## Entidades do Banco de Dados

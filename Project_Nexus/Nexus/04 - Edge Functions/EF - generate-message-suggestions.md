@@ -37,7 +37,7 @@ parent: "[[Nexus - Edge Functions]]"
 - Fallback local com mensagens genéricas se IA falhar
 
 ## ⚠️ Melhorias
-- [ ] Não loga em `api_logs`
-- [ ] Sugestões genéricas no fallback local perdem contexto
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
+- [x] ~~Sugestões genéricas no fallback local perdem contexto~~ — fallback usa `lead.name`, `segmento` e `status` para personalizar (2026-04-08)
 
 → [[Nexus - Melhorias e Roadmap]]

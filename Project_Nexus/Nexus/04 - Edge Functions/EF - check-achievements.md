@@ -35,8 +35,8 @@ parent: "[[Nexus - Edge Functions]]"
 | Receita 100K | `totalRevenue >= R$ 100.000` |
 
 ## ⚠️ Melhorias
-- [ ] **🔴 SEGURANÇA**: Sem validação JWT — qualquer pessoa pode chamar com qualquer userId
-- [ ] Conquistas verificadas por **nome hardcoded** (string matching) — frágil
-- [ ] Sem critério dinâmico — deveria usar campo `criteria` da tabela `achievements`
+- [x] ~~**🔴 SEGURANÇA**: Sem validação JWT~~ — `requireAuth` já existia; `userId` vem do JWT
+- [x] ~~Conquistas verificadas por **nome hardcoded** (string matching) — frágil~~ — substituído por `switch` em `criteria_type` (2026-04-08)
+- [x] ~~Sem critério dinâmico — deveria usar campo `criteria` da tabela `achievements`~~ — usa `criteria_type` + `criteria_value` do DB; suporta `sales_count`, `first_sale`, `revenue`, `conversion_rate` (2026-04-08)
 
 → [[Nexus - Melhorias e Roadmap]]

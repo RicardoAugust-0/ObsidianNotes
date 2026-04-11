@@ -51,7 +51,7 @@ parent: "[[Nexus - Index do Projeto]]"
 | [Supabase](https://supabase.com/) | BaaS completo (Auth, DB, Functions, Storage, Realtime) |
 | **PostgreSQL** | Banco relacional com RLS nativo e funções RPC |
 | **Supabase Auth** | Email/Senha com verificação. JWT. Sessão persistente em `localStorage` |
-| **Supabase Edge Functions (Deno)** | 20 funções serverless (TypeScript/Deno) |
+| **Supabase Edge Functions (Deno)** | 22 funções serverless (TypeScript/Deno) |
 | **Supabase Realtime** | Subscrições `postgres_changes` para updates em `profiles` |
 | **Supabase Storage** | Upload de logos, avatares e documentos |
 
@@ -76,7 +76,8 @@ parent: "[[Nexus - Index do Projeto]]"
 
 | Serviço | Uso no Nexus | Conexão |
 |:---|:---|:---|
-| [OpenAI API](https://openai.com/api/) | Nexus Chat (streaming SSE), análises 360°, geração de captions, imagens, sugestões de mensagem | Edge Function → env vars |
+| [OpenAI API](https://openai.com/api/) | **Modelo primário** — Nexus Chat (streaming SSE), análises 360°, geração de captions, imagens, sugestões de mensagem. Roteado via Lovable AI Gateway (`ai.gateway.lovable.dev`) | Edge Function → env vars |
+| **Gemini 2.5 Flash** (Google) | **Modelo fallback** — ativado automaticamente quando OpenAI falha | Edge Function → env vars |
 | [Tavily AI](https://tavily.com/) | Pesquisa web em tempo real para enriquecimento de leads e análise de websites | Edge Function → env vars |
 | [Meta Graph API v23.0](https://developers.facebook.com/) | WhatsApp Business Templates (CRUD) | Edge Function → `integration_configs` (por tenant) |
 

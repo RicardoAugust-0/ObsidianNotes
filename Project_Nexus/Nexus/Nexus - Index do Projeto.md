@@ -7,7 +7,7 @@ aliases:
   - Nexus
   - Nexus CRM
 created: 2026-04-03
-updated: 2026-04-06
+updated: 2026-04-08
 status: 🟢 Em Desenvolvimento Ativo
 ---
 
@@ -37,13 +37,14 @@ Nexus/
 │
 ├── 📂 03 - Código/
 │   ├── Nexus - Fluxo de Dados
-│   └── Nexus - Mapeamento de Arquivos
+│   ├── Nexus - Mapeamento de Arquivos
+│   └── FC - PreLeadsSection
 │
 ├── 📂 04 - Edge Functions/
 │   ├── Nexus - Edge Functions (overview)
 │   ├── Nexus - Shared Helpers (_shared/)
 │   ├── Nexus - nexus-assistant Arquitetura
-│   └── 20 notas individuais (EF - *.md)
+│   └── 20 notas individuais (EF - *.md) — 22 funções no código
 │
 ├── 📂 05 - Roadmap/
 │   ├── Nexus - Melhorias e Roadmap
@@ -52,7 +53,11 @@ Nexus/
 │
 └── 📂 06 - Sprints/
     ├── Sprint 01 - Infra & Segurança
-    └── Sprint 02 - Observabilidade & Modularização
+    ├── Sprint 02 - Observabilidade & Modularização
+    ├── Sprint 03 - Performance & Tipos
+    ├── Sprint 04 - Admin, Integrações e Desempenho
+    ├── Sprint 05 - Revisão de Segurança Backend
+    └── Sprint 06 - Melhorias de Qualidade Backend
 ```
 
 ---
@@ -81,8 +86,9 @@ Nexus/
 |:---|:---|
 | [[Nexus - Fluxo de Dados]] | 8 fluxos com diagramas de sequência (Auth, Chat, Leads, Créditos, etc.) |
 | [[Nexus - Mapeamento de Arquivos]] | GPS do código — 100+ arquivos explicados por diretório |
+| [[FC - PreLeadsSection]] | Componente de pré-leads (Google Maps + LinkedIn Scout) — status, ações, filtros |
 
-## ⚡ 04 — Edge Functions (20 funções)
+## ⚡ 04 — Edge Functions (22 funções)
 
 > Nota principal: [[Nexus - Edge Functions]]
 
@@ -90,8 +96,8 @@ Nexus/
 |:---|:---|
 | 🤖 **IA & Análise** | [[EF - nexus-assistant]] · [[EF - analyze-lead-360]] · [[EF - analyze-leads-data]] · [[EF - analyze-linkedin-lead]] · [[EF - analyze-opportunities]] · [[EF - analyze-website]] · [[EF - generate-message-suggestions]] · [[EF - summarize-chat-history]] · [[EF - summarize-meeting-prep]] |
 | 📝 **Conteúdo** | [[EF - generate-post-caption]] · [[EF - generate-brand-image]] · [[EF - generate-twitter-carousel]] · [[EF - generate-chat-embeddings]] |
-| 🔍 **Busca** | [[EF - search-leads]] · [[EF - whatsapp-templates]] |
-| ⚙️ **Sistema** | [[EF - process-action]] · [[EF - get-integration-config]] · [[EF - test-integration]] · [[EF - check-achievements]] · [[EF - list-users]] |
+| 🔍 **Busca** | [[EF - search-leads]] · [[EF - whatsapp-templates]] · `send-whatsapp-message` ⚠️ sem nota |
+| ⚙️ **Sistema** | [[EF - process-action]] · [[EF - get-integration-config]] · [[EF - test-integration]] · [[EF - check-achievements]] · [[EF - list-users]] · `add-credits` ⚠️ sem nota |
 
 **Infraestrutura compartilhada:**
 
@@ -117,6 +123,7 @@ Nexus/
 | [[Sprint 03 - Performance & Tipos]]             |   ✅    |                                                       |
 | [[Sprint 04 - Admin, Integrações e Desempenho]] |   ✅    |                                                       |
 | [[Sprint 05 - Revisão de Segurança Backend]]    |   ✅    |                                                       |
+| [[Sprint 06 - Melhorias de Qualidade Backend]]  |   ✅    | Sanitização de inputs, mensagens de erro, seg. pontual |
 
 ---
 
@@ -135,7 +142,7 @@ Nexus/
 
 ## 🛠️ Stack em uma Linha
 
-**Frontend:** React 18 / Vite 7 / Tailwind 3 · **Backend:** Supabase / PostgreSQL / 20 Edge Functions (Deno) · **IA:** Gemini (primário) / OpenAI (fallback) / Tavily
+**Frontend:** React 18 / Vite 7 / Tailwind 3 · **Backend:** Supabase / PostgreSQL / 22 Edge Functions (Deno) · **IA:** OpenAI (primário, via Lovable Gateway) / Gemini 2.5 Flash (fallback) / Tavily
 
 ---
 
@@ -145,11 +152,11 @@ Nexus/
 | :---------------: | :---: |
 | Notas neste vault |  40+  |
 |  Páginas (rotas)  |  17   |
-|  Edge Functions   |  20 (search-leads com pipeline de Inteligência Geográfica)   |
+|  Edge Functions   |  22 (search-leads com pipeline de Inteligência Geográfica)   |
 | Tabelas no banco  |  25+  |
-|  Migrations SQL   |  32   |
+|  Migrations SQL   |  38   |
 | Componentes React |  80+  |
-|  Sprints Concluídas | 2   |
+|  Sprints Concluídas | 6   |
 
 ---
 

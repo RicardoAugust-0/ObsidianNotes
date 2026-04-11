@@ -5,13 +5,13 @@ tags:
   - edge-functions
   - supabase
 created: 2026-04-03
-updated: 2026-04-05
+updated: 2026-04-08
 parent: "[[Nexus - Index do Projeto]]"
 ---
 
 # ⚡ Nexus — Edge Functions (Deep Dive)
 
-> Documentação detalhada das **20 Edge Functions (Deno/TypeScript)** do backend Supabase. Cada função é autônoma, com CORS, autenticação e logging padronizados.
+> Documentação detalhada das **22 Edge Functions (Deno/TypeScript)** do backend Supabase. Cada função é autônoma, com CORS, autenticação e logging padronizados.
 > 
 > Para visão geral da arquitetura: [[Nexus - Arquitetura]]
 
@@ -232,6 +232,35 @@ stateDiagram-v2
 - Categorias: `MARKETING`, `UTILITY`, `AUTHENTICATION`
 
 **Error mapping:** Converte códigos de erro Meta (190=token expirado, 4=rate limit, 100=param inválido) em mensagens PT-BR.
+
+---
+
+## 💬 Mensageria (2 funções)
+
+### `add-credits` → [[EF - add-credits|Nota detalhada]]
+
+> Adiciona créditos ao saldo do usuário autenticado. Função de billing — **não consome créditos**.
+
+| Input | Output | Tabela |
+|:---|:---|:---|
+| `{ amount: number }` | `{ success, newBalance }` | `profiles.credits` |
+
+**Fluxo:** `requireAuth` → valida `amount` (inteiro positivo) → tenta RPC `add_credits_atomic` → fallback read-then-write → retorna novo saldo.
+
+> [!warning] Atomicidade condicional
+> Usa `add_credits_atomic` RPC para operação thread-safe. Se a RPC não existir no banco, cai em fallback read-then-write (não atômico). Qualquer usuário autenticado pode chamar — avaliar adicionar `requireAdmin()` para proteção extra.
+
+---
+
+### `send-whatsapp-message` → [[EF - send-whatsapp-message|Nota detalhada]]
+
+> Envia texto livre via **API proprietária** da RP Consultoria (`rpconsultoriaone.shop`). Não usa Meta Graph API nem o sistema de templates.
+
+| Input | Output | API Externa |
+|:---|:---|:---|
+| `{ phone, message }` | `{ success, data }` | `api.rpconsultoriaone.shop` |
+
+**Diferença chave vs `whatsapp-templates`:** Esta função envia mensagem de texto livre (sem template), via API proprietária autenticada por `WHATSAPP_API_KEY` (env secret). `whatsapp-templates` gerencia templates aprovados via Meta Graph API v23.0.
 
 ---
 

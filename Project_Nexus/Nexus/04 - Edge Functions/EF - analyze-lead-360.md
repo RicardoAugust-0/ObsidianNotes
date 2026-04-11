@@ -34,8 +34,8 @@ parent: "[[Nexus - Edge Functions]]"
 4. **Projetos Exclusivos** — Automações avançadas
 
 ## ⚠️ Melhorias
-- [ ] Portfólio hardcoded no prompt — deveria vir do banco ou config
-- [ ] Não loga em `api_logs`
-- [ ] Sem consumo de créditos
+- [x] ~~Portfólio hardcoded no prompt~~ — extraído para constante `PORTFOLIO` no topo do arquivo (2026-04-08). Migração para banco/config pendente (SUG-001).
+- [x] ~~Não loga em `api_logs`~~ — já implementado via `createLogger`
+- [x] ~~Sem consumo de créditos~~ — já implementado via `consumeCredits`
 
 → [[Nexus - Melhorias e Roadmap]]

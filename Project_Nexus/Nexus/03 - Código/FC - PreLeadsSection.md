@@ -4,7 +4,7 @@ created: 2026-04-05
 updated: 2026-04-05
 status: 🟢 Produção
 category: Frontend
-parent: "[[Nexus - Edge Functions]]"
+parent: "[[Nexus - Mapeamento de Arquivos]]"
 ---
 
 # 📋 PreLeadsSection
@@ -62,4 +62,4 @@ parent: "[[Nexus - Edge Functions]]"
 - "Atribuídos a mim" (checkbox)
 - Visualização: Cards, Tabela ou Kanban
 
-→ [[Nexus - Edge Functions#search-leads]] | [[EF - PreLeadCard]]
+→ [[EF - search-leads]] · [[Nexus - Mapeamento de Arquivos#opportunities]]

@@ -41,7 +41,7 @@ Bônus: Atividade (+20), Engajamento (+10), Fit Comercial (+10)
 - Verifica se lead tem proposta PDF (`has_proposal`)
 
 ## ⚠️ Melhorias
-- [ ] **🔴 CRÍTICO**: Busca leads sem filtro `user_id` — viola multi-tenancy
-- [ ] Limite de 50 leads pode excluir oportunidades recentes
+- [x] ~~**🔴 CRÍTICO**: Busca leads sem filtro `user_id`~~ — filtro `.eq("user_id", user.id)` já existia
+- [x] ~~Limite de 50 leads pode excluir oportunidades recentes~~ — aumentado para `.limit(100)` (2026-04-08)
 
 → [[Nexus - Melhorias e Roadmap]]
